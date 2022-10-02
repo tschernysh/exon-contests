@@ -1,0 +1,252 @@
+{
+    "contractName": "Price",
+    "abi": [
+        {
+         "inputs": [
+          {
+           "internalType": "address",
+           "name": "_nftAddress",
+           "type": "address"
+          },
+          {
+           "internalType": "address",
+           "name": "_factoryAddress",
+           "type": "address"
+          },
+          {
+           "internalType": "address",
+           "name": "_routerAddress",
+           "type": "address"
+          },
+          {
+           "internalType": "address",
+           "name": "_wtrx",
+           "type": "address"
+          },
+          {
+           "internalType": "address",
+           "name": "_usdt",
+           "type": "address"
+          }
+         ],
+         "stateMutability": "nonpayable",
+         "type": "constructor"
+        },
+        {
+         "inputs": [],
+         "name": "factoryAddress",
+         "outputs": [
+          {
+           "internalType": "address",
+           "name": "",
+           "type": "address"
+          }
+         ],
+         "stateMutability": "view",
+         "type": "function"
+        },
+        {
+         "inputs": [],
+         "name": "getCurrentPriceTRX",
+         "outputs": [
+          {
+           "internalType": "uint256",
+           "name": "",
+           "type": "uint256"
+          }
+         ],
+         "stateMutability": "view",
+         "type": "function"
+        },
+        {
+         "inputs": [
+          {
+           "internalType": "address",
+           "name": "_address",
+           "type": "address"
+          },
+          {
+           "internalType": "uint256",
+           "name": "_tokenId",
+           "type": "uint256"
+          }
+         ],
+         "name": "getLiquidityByTokenId",
+         "outputs": [
+          {
+           "internalType": "uint256",
+           "name": "",
+           "type": "uint256"
+          },
+          {
+           "internalType": "uint256",
+           "name": "",
+           "type": "uint256"
+          }
+         ],
+         "stateMutability": "view",
+         "type": "function"
+        },
+        {
+         "inputs": [],
+         "name": "getPairUSDTRX",
+         "outputs": [
+          {
+           "internalType": "address",
+           "name": "",
+           "type": "address"
+          }
+         ],
+         "stateMutability": "nonpayable",
+         "type": "function"
+        },
+        {
+         "inputs": [
+          {
+           "internalType": "uint256",
+           "name": "_token_id",
+           "type": "uint256"
+          }
+         ],
+         "name": "getPersonalLiquidity",
+         "outputs": [
+          {
+           "internalType": "uint256",
+           "name": "",
+           "type": "uint256"
+          }
+         ],
+         "stateMutability": "view",
+         "type": "function"
+        },
+        {
+         "inputs": [
+          {
+           "internalType": "uint256",
+           "name": "_token_id",
+           "type": "uint256"
+          }
+         ],
+         "name": "getPersonalSwap",
+         "outputs": [
+          {
+           "internalType": "uint256",
+           "name": "",
+           "type": "uint256"
+          }
+         ],
+         "stateMutability": "view",
+         "type": "function"
+        },
+        {
+         "inputs": [
+          {
+           "internalType": "address",
+           "name": "_tokenAddress",
+           "type": "address"
+          }
+         ],
+         "name": "getTokenPriceInUSD",
+         "outputs": [
+          {
+           "internalType": "uint256",
+           "name": "",
+           "type": "uint256"
+          }
+         ],
+         "stateMutability": "view",
+         "type": "function"
+        },
+        {
+         "inputs": [],
+         "name": "nftAddress",
+         "outputs": [
+          {
+           "internalType": "address",
+           "name": "",
+           "type": "address"
+          }
+         ],
+         "stateMutability": "view",
+         "type": "function"
+        },
+        {
+         "inputs": [],
+         "name": "owner",
+         "outputs": [
+          {
+           "internalType": "address",
+           "name": "",
+           "type": "address"
+          }
+         ],
+         "stateMutability": "view",
+         "type": "function"
+        },
+        {
+         "inputs": [],
+         "name": "routerAddress",
+         "outputs": [
+          {
+           "internalType": "address",
+           "name": "",
+           "type": "address"
+          }
+         ],
+         "stateMutability": "view",
+         "type": "function"
+        },
+        {
+         "inputs": [
+          {
+           "internalType": "address",
+           "name": "_address",
+           "type": "address"
+          }
+         ],
+         "name": "setFactoryAddress",
+         "outputs": [],
+         "stateMutability": "nonpayable",
+         "type": "function"
+        },
+        {
+         "inputs": [
+          {
+           "internalType": "address",
+           "name": "_address",
+           "type": "address"
+          }
+         ],
+         "name": "setNftAddress",
+         "outputs": [],
+         "stateMutability": "nonpayable",
+         "type": "function"
+        },
+        {
+         "inputs": [],
+         "name": "usdtAddress",
+         "outputs": [
+          {
+           "internalType": "address",
+           "name": "",
+           "type": "address"
+          }
+         ],
+         "stateMutability": "view",
+         "type": "function"
+        },
+        {
+         "inputs": [],
+         "name": "wtrxAddress",
+         "outputs": [
+          {
+           "internalType": "address",
+           "name": "",
+           "type": "address"
+          }
+         ],
+         "stateMutability": "view",
+         "type": "function"
+        }
+       ]
+}
