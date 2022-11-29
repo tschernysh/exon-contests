@@ -5,6 +5,7 @@ const Price = require('../contracts/Price.json')
 const { parseResult } = require('../utils/parseResult')
 const { tronweb } = require('../utils/tronwebInit')
 const {getAccountTransactions} = require('../api/api')
+const { initContract } = require('../utils/initContract')
 
 
 
@@ -24,6 +25,7 @@ const getPersonalTradeInPair = async (tokenIdList, pairAddressList, start, end) 
 		Price.abi,
 		config().PRICE_CONTRACT
 	)
+	const NftContract = await initContract(config().ACCOUNT_CONTRACT, TronWeb)
 	for (let i = 0; i < tokenIdList.length; i++) {
 		swapArray.push({tokenId: tokenIdList[i], swapAmount: 0})
 	}
@@ -73,26 +75,32 @@ const getPersonalTradeInPair = async (tokenIdList, pairAddressList, start, end) 
 			} catch (error) {
 				console.log(error);
 			}
-			try {
-			  events = await TronWeb.getEventResult(fromHexAddress)
-			  transactions = await getAccountTransactions()
-			  console.log(transactions);
-			  // console.log('EVENTS: ', events)
-			} catch (error) {
-			  console.log(error)
-			  return
-			}
 
-			for(let i = 0; i < events.length; i++){
-			  var transactionInfo;
-				console.log(events[i].transaction);
-			  try {
-			    transactionInfo = await TronWeb.trx.getTransactionInfo(events[i].transaction)
-			 } catch(error) {
-			   console.log(error)
+			for (let k = 0; k < tokenIdList.length; k++){
+				let nftAddress
+				try {
+					nftAddress = await NftContract.ownerOf(tokenIdList[k]).call()
+					nftAddress = await TronWeb.address.fromHex(nftAddress)
+				} catch (error) {
+					console.log(error);
 				}
-				if(transactionInfo.log){
-					for (let k = 0; k < tokenIdList.length; k++){
+				try {
+					console.log(nftAddress, fromHexAddress);
+					transactions = await getAccountTransactions(nftAddress, fromHexAddress)
+					// console.log('EVENTS: ', events)
+				  } catch (error) {
+					  console.log(error.message);
+					return
+				  }
+				  for(let i = 0; i < transactions.length; i++){
+					var transactionInfo;
+					  console.log(transactions[i].transaction);
+					try {
+					  transactionInfo = await TronWeb.trx.getTransactionInfo(transactions[i].transaction)
+				   } catch(error) {
+					 console.log(error)
+				   }
+					  if(transactionInfo.log){
 						for (let j = 0; j < transactionInfo.log.length; j++){
 							if ('0x'+transactionInfo.log[j].topics[0] == swapEvent) {
 								swapResult = await parseResult(
@@ -111,11 +119,10 @@ const getPersonalTradeInPair = async (tokenIdList, pairAddressList, start, end) 
 										: el)
 									}
 								}
-
 							}
 						}
-					}
-				}
+					  }
+				  }
 			}
 		}
 	}

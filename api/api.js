@@ -7,7 +7,7 @@ api =	axios.create({
 }) 
 
 	const getAccountTransactions = (currentAddress, lpAddress) =>
-		api.get(`${config().TRON_GRID} + v1/accounts/${currentAddress}/transactions/trc20?limit=200&contract_address=${lpAddress}`, {
+		api.get(`${config().TRON_GRID}v1/accounts/${currentAddress}/transactions/trc20?limit=200&contract_address=${lpAddress}`, {
 			crossDomain: true,
 			headers: {
 				Accept: 'application/json',
