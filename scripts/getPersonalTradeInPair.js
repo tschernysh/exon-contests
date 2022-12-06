@@ -85,28 +85,38 @@ const getPersonalTradeInPair = async (tokenIdList, pairAddressList, start, end) 
 					console.log(error);
 				}
 				try {
-					console.log(nftAddress, fromHexAddress);
 					transactions = await getAccountTransactions(nftAddress, fromHexAddress)
 					// console.log('EVENTS: ', events)
 				  } catch (error) {
 					  console.log(error.message);
 					return
 				  }
-				  for(let i = 0; i < transactions.length; i++){
+				  for(let i = 0; i < transactions.data.data.length; i++){
 					var transactionInfo;
-					  console.log(transactions[i].transaction);
 					try {
-					  transactionInfo = await TronWeb.trx.getTransactionInfo(transactions[i].transaction)
+					  transactionInfo = await TronWeb.trx.getTransactionInfo(transactions.data.data[i].transaction_id)
 				   } catch(error) {
 					 console.log(error)
 				   }
 					  if(transactionInfo.log){
 						for (let j = 0; j < transactionInfo.log.length; j++){
+							if(tokenIdList[k] === 4){
+								console.log('TRANSACTION TOPIC', 
+								transactionInfo.log[j].topics[0], 
+								swapEvent, transactions.data.data[i].transaction_id);
+							}
 							if ('0x'+transactionInfo.log[j].topics[0] == swapEvent) {
-								swapResult = await parseResult(
-								['address','uint256','uint256','uint256','uint256'],
-								'0x' + transactionInfo.log[j].data
+								console.log(9);
+								swapResult
+								try {
+									swapResult = await parseResult(
+									['address','uint256','uint256','uint256','uint256'],
+									'0x' + transactionInfo.log[j].data
 								);
+								} catch (error) {
+									console.log(error);
+								}
+								console.log(tokenIdList[k], swapResult);
 								if(swapResult[1].toNumber() === tokenIdList[k] && ( +swapResult[3].toNumber() || +swapResult[4].toNumber() )){
 									console.log(transactionInfo.blockTimeStamp);
 									if((transactionInfo.blockTimeStamp > start) && (transactionInfo.blockTimeStamp < end ) ){
